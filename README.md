@@ -1,5 +1,4 @@
-# TesteCucumber
-Desafio Técnico QA
+# Automação de API
 
 Projeto realizado utilizando o Cucumber,HTTPary, Rspec e Ruby.
 
