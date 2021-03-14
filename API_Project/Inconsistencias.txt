@@ -1,0 +1,78 @@
+|-----------------------------------------------------------------------------------------|
+Inconsistência 01:
+[Pre Condição]
+Verbo GET apontando para localhost:8080/api/v1/restricoes/{cpf} com CPF restrito.
+CPF: 97093236014
+
+[Sequencia do teste]
+1 - Ao consultar um CPF com restrição utilizando GET:
+    localhost:8080/api/v1/restricoes/97093236014
+
+[Resultado Esperado]
+- Deve retornar o status code 200
+- Deve retornar um body informando {"mensagem": "O CPF 97093236014 possui restrição"}
+
+[Resultado Atual]
+- Retorna um body informando {"mensagem": "O CPF 97093236014 tem problema"}
+
+|-----------------------------------------------------------------------------------------|
+Inconsistência 02:
+[Pre Condição]
+POST apontando para http://localhost:8080/api/v1/simulacoes
+Body onde o valor informado está abaixo de 1000
+{
+  "nome": "Fulano de Tal",
+  "cpf": 97097236015,
+  "email": "email@email.com",
+  "valor": 999,
+  "parcelas": 3,
+  "seguro": true
+}
+
+[Sequencia do teste]
+1 - Ao solicitar uma nova simulação com valor abaixo de 1000
+
+[Resultado Esperado]
+- Deve retornar o status code 400
+
+[Resultado Atual]
+- Permite cadastrar novas simulações com qualquer valor positivo entre 0 e 1000 ou com valores negativos.
+|-----------------------------------------------------------------------------------------|
+Inconsistência 03:
+[Pre Condição]
+CPF Sem restrição
+
+[Sequencia do teste]
+1 - Enviar requisicão POST para http://localhost:8080/api/v1/simulacoes informando "" no valor do seguro.
+{
+  "nome": "Fulano de Tal",
+  "cpf": 97097236015,
+  "email": "email@email.com",
+  "valor": 999,
+  "parcelas": 3,
+  "seguro": ""
+}
+
+[Resultado Esperado]
+- É obrigatório informar dados válidos em todos os campos, caso falte alguma informação, deve retornar o status code 400
+
+[Resultado Atual]
+- Permite cadastrar novas simulações caso seja considerado um valor vazio no campo seguro ""
+|-----------------------------------------------------------------------------------------|
+Inconsistência 04:
+[Pre Condição]
+Nâo há consultas armazenadas no sistema
+
+[Sequencia do teste]
+1 - Enviar requisicão DELETE com um ID inexistente para http://localhost:8080/api/v1/simulacoes/
+    Ex: Delete - > http://localhost:8080/api/v1/simulacoes/1 onde 1 é um ID.
+
+[Resultado Esperado]
+- Deve retornar o codigo 404 com a mensagem "Simulação não encontrada"
+
+[Resultado Atual]
+- Retorna o código 200
+
+[Informações adicionais]
+Na documentação do Swagger o código 200 significa que a simulação foi removida com sucesso.
+Na Leia-me da aplicação informam codigos 404 e 204 que não estão documentados no SWAGGER.
