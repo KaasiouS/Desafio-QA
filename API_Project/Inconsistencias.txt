@@ -16,6 +16,7 @@ CPF: 97093236014
 - Retorna um body informando {"mensagem": "O CPF 97093236014 tem problema"}
 
 |-----------------------------------------------------------------------------------------|
+
 Inconsistência 02:
 [Pre Condição]
 POST apontando para http://localhost:8080/api/v1/simulacoes
@@ -37,6 +38,7 @@ Body onde o valor informado está abaixo de 1000
 
 [Resultado Atual]
 - Permite cadastrar novas simulações com qualquer valor positivo entre 0 e 1000 ou com valores negativos.
+
 |-----------------------------------------------------------------------------------------|
 Inconsistência 03:
 [Pre Condição]
@@ -58,7 +60,9 @@ CPF Sem restrição
 
 [Resultado Atual]
 - Permite cadastrar novas simulações caso seja considerado um valor vazio no campo seguro ""
+
 |-----------------------------------------------------------------------------------------|
+
 Inconsistência 04:
 [Pre Condição]
 Nâo há consultas armazenadas no sistema
@@ -76,3 +80,14 @@ Nâo há consultas armazenadas no sistema
 [Informações adicionais]
 Na documentação do Swagger o código 200 significa que a simulação foi removida com sucesso.
 Na Leia-me da aplicação informam codigos 404 e 204 que não estão documentados no SWAGGER.
+|-----------------------------------------------------------------------------------------|
+
+Inconsistência 05:
+[Sequencia do teste]
+- Adicione uma simulação válida, na sequência realize uma consulta de todas as simulações.
+
+[Resultado Esperado]
+- Deveriam ser criados ID's sequenciais.
+
+[Resultado Atual]
+- Os ID's gerados não estão sequenciais, é possivel observar que a cada adição de uma nova simulação a aplicação incrementa +2 ou +3 numeros.

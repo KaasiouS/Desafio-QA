@@ -5,15 +5,12 @@ Como Analista de QA
 Eu quero realizar as requisições da API testadas.
 A fim de garantir a qualidade do software testado.
 
-@Get
-
-Cenário: Criar uma simulação com ID único que será deletado posteriormente a cada execução do teste.
-    Dado Crio uma simulação com o CPF 12345678910.
-    Então Armazeno o ID em uma variável global para chamar o método DELETE ao fim da suite de testes.
-    
+@Get 
 Cenário: Consultar CPF com restrição
     Dado Acesso o endereço para consultar restrições de um CPF com restrição
     Então Recebo a mensagem que o CPF está com restrição e o código 200
+    # Há um issue aqui, deveria ser retornado a mensagem "O CPF 99999999999 possui restrição"
+    # Escrevi o script pois, é simples de realizar a manutenção após o fixed, logo na regressão já estará pronto.
 
 Cenário: Consultar CPF Sem restrição
     Dado Acesso o endereço para consultar restrições de um CPF sem restrição
@@ -28,13 +25,6 @@ Cenário: Inserir uma nova simuação com problema em alguma regra
     Dado Acesso o endereço para consultar restrições de um CPF sem restrição
     Quando submeto uma requisição com cadastro com problema
     Então Recebo o código 400 com a lista de erros.
-
-#Cenário: CPF Já cadastrado
-    #Dado Acesso o endereço para consultar restrições de um CPF sem restrição
-    #E e o CPF já está cadastrado
-    #Então Recebo o código 409 com a mensagem "CPF já existente"
-#* Uma simulação para um mesmo CPF retorna um HTTP Status 409 com a mensagem "CPF já existente"
-# Há um issue, precisa corrigir o Status code e a mensagen de retorno, script desativado enquanto isto.
 
 Cenário: Consultar todas as simulações cadastradas
     Dado Envio a requisição de consultar todas as simulações
@@ -53,8 +43,7 @@ Cenário: Alterar uma simulação já existente através do CPF
     Dado Envio uma requisição de alteração
     Então recebo o código 200 ao efetuar com sucesso a operação e os dados alterados.
 
-#Cenário: Remover uma Simulação
-    #Dado Envio uma requisição de Delete pelo ID
-    #Então recebo Status code 200
+Cenário: Remover uma Simulação
+    Dado Envio uma requisição de Delete pelo ID
+    Então recebo Status code 200
 
-#* preciso encontrar uma solução para capturar o ID de uma simulação automaticamente e reutilizar para apagar

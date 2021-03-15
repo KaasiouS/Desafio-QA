@@ -13,17 +13,14 @@ Dado('Acesso o endereço para consultar restrições de um CPF sem restrição')
 end
   
 Então('Recebo a mensagem que o CPF está sem restrição e o código {int}') do |int|
+    log CPFSemRestricao.body
     log CPFSemRestricao.code
     expect(CPFSemRestricao.code).to eq 204
 end
 
 Dado('Envio a requisição de consultar todas as simulações') do
     ConsultarTudo = HTTParty.get("http://localhost:8080/api/v1/simulacoes")
-    #Refatorar aqui em busca do Array para localizar o ID e então deletar.
-    #page_data = HTTParty.get (ConsultarTudo) 
-    #responses = page_data.parsed_response
-
-  end
+   end
   
   Então('Recebo o código {int}') do |int|
     log ConsultarTudo.code
