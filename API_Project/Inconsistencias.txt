@@ -90,4 +90,4 @@ Inconsistência 05:
 - Deveriam ser criados ID's sequenciais.
 
 [Resultado Atual]
-- Os ID's gerados não estão sequenciais, é possivel observar que a cada adição de uma nova simulação a aplicação incrementa +2 ou +3 numeros.
+- Os ID's gerados não estão sequenciais, é possivel observar que a cada adição de uma nova simulação a aplicação incrementa +2 ou +3 .
